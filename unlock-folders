@@ -1,0 +1,3 @@
+#!/bin/bash
+sudo chown -R $USER: $HOME
+echo "all home folders are unlocked!"

@@ -1,0 +1,62 @@
+#!/bin/bash
+
+# Check if the script is run as root
+if [ "$EUID" -ne 0 ]; then
+  echo "Please run this script as root."
+  exit 1
+fi
+
+# Function to select Wi-Fi card
+function select_wifi_card() {
+  local wifi_cards=$(ls /sys/class/net | grep -E '^w')
+  local options=()
+  for card in ${wifi_cards[@]}; do
+    options+=("$card")
+  done
+
+  local choice
+  PS3="Select a Wi-Fi card to use: "
+  select choice in "${options[@]}"; do
+    if [[ " ${options[*]} " == *" $choice "* ]]; then
+      echo "$choice"
+      break
+    else
+      echo "Invalid option. Please try again."
+    fi
+  done
+}
+
+# Function to create hotspot using the selected Wi-Fi card
+function create_hotspot() {
+  local selected_card="$1"
+  local ssid
+  local password
+
+  read -p "Enter name for the hotspot: " ssid
+  read -p "Enter password for the hotspot: " password
+
+  # Configure hostapd
+  cat <<EOL >"/etc/hostapd/hostapd.conf"
+interface=$selected_card
+ssid=$ssid
+wpa_passphrase=$password
+driver=nl80211
+hw_mode=g
+channel=6
+EOL
+
+  # Configure dnsmasq
+  echo "interface=$selected_card" > /etc/dnsmasq.conf
+
+  # Enable IP forwarding
+  sysctl net.ipv4.ip_forward=1
+
+  # Start the access point
+  hostapd /etc/hostapd/hostapd.conf
+}
+
+# Main script
+selected_wifi_card=$(select_wifi_card)
+if [ -n "$selected_wifi_card" ]; then
+  create_hotspot "$selected_wifi_card"
+fi

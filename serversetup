@@ -1,0 +1,40 @@
+#!/bin/bash
+location=$(pwd | grep .)
+sudo apt update 
+sudo apt upgrade -y
+sudo apt install net-tools wireless-tools dialog curl git cockpit python3-pip fail2ban -y
+git clone https://github.com/AngelSecurityTeam/Cam-Hackers
+git clone https://github.com/thewhiteh4t/seeker
+git clone https://github.com/sherlock-project/sherlock
+git clone https://github.com/MrScratchcat/auto-minecraft-server
+sudo systemctl start cockpit cockpit.socket
+sudo systemctl enable cockpit cockpit.socket
+sudo ufw allow 9090
+ip=$(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1')
+public=$(curl ifconfig.me)
+cd
+#startup program
+name=startcockpit
+command="sudo systemctl enable --now cockpit.socket"
+
+echo "${command}" > ${name}.sh
+sudo cp ${name}.sh /usr/local/bin/
+sudo chmod +x /usr/local/bin/${name}.sh
+sudo echo "[Unit]
+Description=STARTUP SCRIPT
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/${name}.sh
+
+[Install]
+WantedBy=default.target
+" > ${name}.service
+sudo cp ${name}.service /etc/systemd/system/
+sudo systemctl enable ${name}.service
+cd ${location}
+rm ${name}.service
+rm ${name}.sh
+clear
+echo "go to https://${ip}:9090 or for public https://${public}:9090"

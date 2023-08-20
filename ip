@@ -1,0 +1,8 @@
+#!/bin/bash
+sudo apt update
+sudo apt install net-tools curl -y
+clear
+echo "local ip:"
+ifconfig
+echo "public ip:"
+curl ifconfig.me

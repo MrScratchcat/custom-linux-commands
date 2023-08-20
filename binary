@@ -1,0 +1,22 @@
+#!/bin/bash
+
+read -p "Enter a binary number: " binary
+decimal=0
+power=0
+
+# Reverse the binary number
+reversed_binary=$(echo "$binary" | rev)
+
+# Iterate through each bit of the binary number
+for bit in $(seq 0 $((${#reversed_binary}-1))); do
+    # Get the value of the current bit
+    current_bit="${reversed_binary:$bit:1}"
+    
+    # Convert the current bit to decimal and add it to the total
+    decimal=$((decimal + (current_bit * (2 ** power))))
+    
+    # Increment the power
+    power=$((power + 1))
+done
+
+echo "Decimal representation: $decimal"

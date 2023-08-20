@@ -1,0 +1,16 @@
+#!/bin/bash
+cd
+mkdir kernel6.2.2
+cd kernel6.2.2
+sudo apt update
+sudo apt install wget -y
+wget -c https://kernel.ubuntu.com/~kernel-ppa/mainline/v6.2.2/amd64/linux-headers-6.2.2-060202_6.2.2-060202.202303031131_all.deb
+wget -c https://kernel.ubuntu.com/~kernel-ppa/mainline/v6.2.2/amd64/linux-headers-6.2.2-060202-generic_6.2.2-060202.202303031131_amd64.deb
+wget -c https://kernel.ubuntu.com/~kernel-ppa/mainline/v6.2.2/amd64/linux-image-unsigned-6.2.2-060202-generic_6.2.2-060202.202303031131_amd64.deb
+wget -c https://kernel.ubuntu.com/~kernel-ppa/mainline/v6.2.2/amd64/linux-modules-6.2.2-060202-generic_6.2.2-060202.202303031131_amd64.deb
+sudo apt install ./*.deb
+cd
+sudo rm -rf kernel6.2.2
+sudo apt update
+clear
+echo "kernel is up to date please reboot now please"

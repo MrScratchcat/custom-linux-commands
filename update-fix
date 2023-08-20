@@ -1,0 +1,6 @@
+#!/bin/bash
+cd
+cd /etc/apt/sources.list.d/
+sudo mv embrosyn-ubuntu-cinnamon-jammy.list embrosyn-ubuntu-cinnamon-jammy.list.bak
+cd
+echo "your updater has been fixed"

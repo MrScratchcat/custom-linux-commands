@@ -1,0 +1,48 @@
+#!/bin/bash
+sudo apt install aircrack-ng -y
+clear
+# Set the directory to the current directory
+directory=$(pwd)
+
+# Create an array to store the file names
+files=()
+
+# Iterate over each .pcap or .cap file in the directory and add it to the array
+count=1
+for file in "$directory"/*.pcap "$directory"/*.cap; do
+    [[ -f "$file" ]] && files+=("$(basename "$file")")
+    count=$((count + 1))
+done
+
+# Display the list of files
+echo "Select a file:"
+for ((i=0; i<${#files[@]}; i++)); do
+    echo "$((i+1)). ${files[$i]}"
+done
+
+# Prompt the user for their selection
+read -p "Enter the number of the file you want to select: " selection_number
+
+# Validate the user's input
+if [[ $selection_number =~ ^[0-9]+$ ]]; then
+    if (( selection_number >= 1 && selection_number <= ${#files[@]} )); then
+        selected_file=${files[$((selection_number-1))]}
+        echo "Selected file: $selected_file"
+    else
+        echo "Invalid selection. Please enter a valid number."
+        exit
+    fi
+else
+    echo "Invalid input. Please enter a valid number."
+    exit
+fi
+#wordlist
+if [ -f "rockyou.txt" ]; then
+    echo "rockyou.txt file already exists."
+else
+    echo "rockyou.txt file not found. Downloading..."
+    wget https://github.com/brannondorsey/naive-hashcat/releases/download/data/rockyou.txt
+fi
+#crack command
+clear
+aircrack-ng $selected_file -w rockyou.txt

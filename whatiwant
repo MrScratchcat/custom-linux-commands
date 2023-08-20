@@ -1,0 +1,31 @@
+#!/bin/bash
+cd
+sudo apt update 
+sudo apt upgrade -y
+sudo apt install neofetch net-tools wireshark curl gimp filezilla wine dialog wireless-tools dialog neofetch git wget curl openjdk-19-jdk ettercap-graphical python3-pip gpsd gpsd-clients python3-tk python3-setuptools python3-pyqt5.qtchart bettercap docker.io -y
+sudo pip3 install QScintilla gps3 dronekit manuf python-dateutil numpy matplotlib
+pkill snap-store
+snap install codium --classic
+mkdir hacking-tools
+cd hacking-tools 
+git clone https://github.com/ghostop14/sparrow-wifi
+git clone https://github.com/AngelSecurityTeam/Cam-Hackers
+git clone https://github.com/thewhiteh4t/seeker
+git clone https://github.com/sherlock-project/sherlock
+cd
+git clone https://github.com/MrScratchcat/auto-minecraft-server
+wget -O minecraft.deb https://launcher.mojang.com/download/Minecraft.deb
+wget -O discord.deb https://discord.com/api/download?platform=linux&format=deb
+sudo apt install -y ./minecraft.deb
+sudo apt install -y ./discord.deb
+echo 'neofetch' >> ~/.bashrc
+gpu=$(lspci | grep -i vga | awk '{print $5}')
+
+if [ $gpu == "NVIDIA" ]
+then
+    sudo apt install nvidia-driver-535
+fi
+sudo chown -R $USER: $HOME
+
+echo "all done"
+

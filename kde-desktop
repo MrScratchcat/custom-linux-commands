@@ -1,0 +1,14 @@
+#!/bin/bash
+cd
+sudo apt update
+sudo apt upgrade -y
+sudo apt-get install kubuntu-desktop -y
+sudo dpkg -P unity-scope-gdrive account-plugin-google
+sudo apt-get -f install
+sudo update-alternatives --config default.plymouth
+cd
+cd /etc/apt/sources.list.d/
+sudo mv embrosyn-ubuntu-cinnamon-jammy.list embrosyn-ubuntu-cinnamon-jammy.list.bak
+cd
+clear
+echo "please reboot now"

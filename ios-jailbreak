@@ -1,0 +1,22 @@
+#!/bin/bash
+wget -O - https://assets.checkra.in/debian/archive.key | gpg --dearmor | sudo tee /usr/share/keyrings/checkra1n.gpg >/dev/null
+echo 'deb [signed-by=/usr/share/keyrings/checkra1n.gpg] https://assets.checkra.in/debian /' | sudo tee /etc/apt/sources.list.d/checkra1n.list
+sudo apt-get update
+sudo apt install dialog -y
+sudo apt-get install checkra1n -y
+dialog --yesno "Do you want to start cracking now?" 7 40
+startup=$?
+clear
+if [ $startup == 0 ]
+then
+    echo "starting crack"
+    sleep 2
+    sudo checkra1n -t
+elif [ $startup == 1 ]
+then
+    echo "didnt want to start"
+    sleep 2
+    clear
+fi
+sudo checkra1n -t
+echo "for more info type: checkra1n -help "

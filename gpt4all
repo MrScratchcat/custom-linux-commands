@@ -1,0 +1,12 @@
+#!/bin/bash
+git clone https://github.com/nomic-ai/gpt4all
+cd gpt4all
+sudo apt update
+sudo apt install python3 -y
+pip install -r requirements.txt
+cd chat 
+wget https://the-eye.eu/public/AI/models/nomic-ai/gpt4all/gpt4all-lora-quantized.bin
+clear
+echo "your now talking to your gpt"
+./gpt4all-lora-quantized-linux-x86
+echo "to play with your gpt again go to gpt4all then go in to the chat folder and type: ./gpt4all-lora-quantized-linux-x86"

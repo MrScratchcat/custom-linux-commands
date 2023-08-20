@@ -1,0 +1,6 @@
+ #!/bin/bash
+ sudo apt update
+ wget -O virtualbox.deb https://download.virtualbox.org/virtualbox/7.0.6/virtualbox-7.0_7.0.6-155176~Ubuntu~jammy_amd64.deb
+ sudo apt install -y ./virtualbox.deb
+ sudo rm virtualbox.deb
+ echo "virtualbox is installed!"

@@ -1,0 +1,11 @@
+#!/bin/bash
+cd
+mkdir hacking-tools
+cd hacking-tools
+sudo apt update 
+sudo apt install git -y
+git clone https://github.com/AngelSecurityTeam/Cam-Hackers
+git clone https://github.com/thewhiteh4t/seeker
+git clone https://github.com/sherlock-project/sherlock
+git clone https://github.com/beefproject/beef/
+echo "all done you can find your tools in /home/hacking-tools"

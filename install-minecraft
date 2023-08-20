@@ -1,0 +1,6 @@
+#!/bin/bash
+sudo apt update 
+wget -O minecraft.deb https://launcher.mojang.com/download/Minecraft.deb
+sudo apt install ./minecraft.deb
+sudo rm minecraft.deb
+echo "minecraft is installed"

@@ -1,0 +1,3 @@
+#!/bin/bash
+gpu=$(lspci | grep -i vga | awk '{print $5}')
+echo "$gpu"
