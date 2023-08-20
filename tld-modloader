@@ -1,0 +1,26 @@
+#!/bin/bash
+cd
+
+#checks if there is an mod loader 
+if [ ! -d "ModLoader" ]; then
+    echo "ModLoader directory not found. Downloading ModLoader..."
+    wget https://cdn.discordapp.com/attachments/788120550907969616/1097272824063852614/ModLoader.zip
+
+    if [ $? -eq 0 ]; then
+        echo "Download successful. Extracting ModLoader..."
+        unzip ModLoader.zip
+        rm ModLoader.zip
+        echo "ModLoader installed."
+    else  
+        echo "Failed to download ModLoader."
+    fi
+fi
+
+#going in the modloader directory 
+cd ModLoader
+
+#TLD part 
+echo "The script you are running has basename $( basename -- "$0"; ), dirname $( dirname -- "$0"; )";
+echo "The present working directory is $( pwd; )";
+
+STEAM_COMPAT_DATA_PATH=~/.steam/steam/steamapps/compatdata/1017180/ STEAM_COMPAT_CLIENT_INSTALL_PATH=~/.steam/steam ~/.steam/steam/steamapps/common/Proton\ -\ Experimental/proton run /$( pwd; )/TLDWorkshop.exe
