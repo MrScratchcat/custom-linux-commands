@@ -1,0 +1,50 @@
+#!/bin/bash
+sudo apt update && sudo apt upgrade -y
+sudo apt install git neofetch -y
+cd
+git clone https://github.com/MrScratchcat/custom-linux-commands
+cd custom-linux-commands/
+sudo cp * /bin
+cd /bin
+sudo chmod +x *
+cd
+sudo rm -r custom-linux-commands/
+
+# Check if neofetch is already present in .bashrc
+if ! grep -q "neofetch" ~/.bashrc; then
+    echo 'neofetch' >> ~/.bashrc
+    echo "Added 'neofetch' command to .bashrc"
+else
+    echo "The 'neofetch' command is already present in .bashrc"
+fi
+
+gpu=$(lspci | grep -i vga | awk '{print $5}')
+kernel=$(uname -r)
+
+if [ $gpu == "NVIDIA" ]
+then
+    sudo apt install nvidia-driver-525 -y
+    if [ $kernel == 5.19.0-38-generic ]
+    then
+        cd
+        mkdir kernel6.2.2
+        cd kernel6.2.2
+        sudo apt update
+        sudo apt install wget -y
+        wget -c https://kernel.ubuntu.com/~kernel-ppa/mainline/v6.2.2/amd64/linux-headers-6.2.2-060202_6.2.2-060202.202303031131_all.deb
+        wget -c https://kernel.ubuntu.com/~kernel-ppa/mainline/v6.2.2/amd64/linux-headers-6.2.2-060202-generic_6.2.2-060202.202303031131_amd64.deb
+        wget -c https://kernel.ubuntu.com/~kernel-ppa/mainline/v6.2.2/amd64/linux-image-unsigned-6.2.2-060202-generic_6.2.2-060202.202303031131_amd64.deb
+        wget -c https://kernel.ubuntu.com/~kernel-ppa/mainline/v6.2.2/amd64/linux-modules-6.2.2-060202-generic_6.2.2-060202.202303031131_amd64.deb
+        sudo apt install ./*.deb
+        cd
+        sudo rm -rf kernel6.2.2
+        sudo apt update
+        clear
+    fi
+fi 
+if [ $kernel == 5.19.0-38-generic ]
+then
+    echo "your up to date please reboot now"
+else
+    echo "your up to date!"
+fi
