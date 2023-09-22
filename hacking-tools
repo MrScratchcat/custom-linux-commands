@@ -4,6 +4,7 @@ mkdir hacking-tools
 cd hacking-tools
 sudo apt update 
 sudo apt install git -y
+git clone https://github.com/tegal1337/CiLocks
 git clone https://github.com/KasRoudra/PyPhisher
 git clone https://github.com/htr-tech/zphisher
 git clone https://github.com/KasRoudra/MaxPhisher
