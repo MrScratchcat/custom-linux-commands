@@ -4,6 +4,9 @@ mkdir hacking-tools
 cd hacking-tools
 sudo apt update 
 sudo apt install git -y
+git clone https://github.com/htr-tech/zphisher
+git clone https://github.com/KasRoudra/MaxPhisher
+git clone https://github.com/TheSpeedX/TBomb
 git clone https://github.com/AngelSecurityTeam/Cam-Hackers
 git clone https://github.com/thewhiteh4t/seeker
 git clone https://github.com/sherlock-project/sherlock
