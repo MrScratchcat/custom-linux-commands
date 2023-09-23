@@ -6,15 +6,19 @@ sudo apt install gnome-software-plugin-flatpak flatpak neofetch net-tools wiresh
 flatpak --user remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install flathub -y
 flatpak install flathub io.missioncenter.MissionCenter -y
+flatpak install vscodium discord vinegar -y
 sudo pip3 install QScintilla gps3 dronekit manuf python-dateutil numpy matplotlib
-pkill snap-store
-snap install codium --classic
 mkdir hacking-tools
 cd hacking-tools 
-git clone https://github.com/ghostop14/sparrow-wifi
+git clone https://github.com/tegal1337/CiLocks
+git clone https://github.com/KasRoudra/PyPhisher
+git clone https://github.com/htr-tech/zphisher
+git clone https://github.com/KasRoudra/MaxPhisher
+git clone https://github.com/TheSpeedX/TBomb
 git clone https://github.com/AngelSecurityTeam/Cam-Hackers
 git clone https://github.com/thewhiteh4t/seeker
 git clone https://github.com/sherlock-project/sherlock
+git clone https://github.com/beefproject/beef/
 cd
 git clone https://github.com/MrScratchcat/auto-minecraft-server
 wget -O minecraft.deb https://launcher.mojang.com/download/Minecraft.deb
@@ -22,12 +26,6 @@ wget -O discord.deb https://discord.com/api/download?platform=linux&format=deb
 sudo apt install -y ./minecraft.deb
 sudo apt install -y ./discord.deb
 echo 'neofetch' >> ~/.bashrc
-gpu=$(lspci | grep -i vga | awk '{print $5}')
-
-if [ $gpu == "NVIDIA" ]
-then
-    sudo apt install nvidia-driver-535
-fi
 sudo chown -R $USER: $HOME
 
 echo "all done"
