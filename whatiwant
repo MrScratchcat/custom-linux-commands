@@ -22,9 +22,7 @@ git clone https://github.com/beefproject/beef/
 cd
 git clone https://github.com/MrScratchcat/auto-minecraft-server
 wget -O minecraft.deb https://launcher.mojang.com/download/Minecraft.deb
-wget -O discord.deb https://discord.com/api/download?platform=linux&format=deb
 sudo apt install -y ./minecraft.deb
-sudo apt install -y ./discord.deb
 echo 'neofetch' >> ~/.bashrc
 sudo chown -R $USER: $HOME
 
