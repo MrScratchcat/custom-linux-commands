@@ -23,8 +23,12 @@ cd
 git clone https://github.com/MrScratchcat/auto-minecraft-server
 wget -O minecraft.deb https://launcher.mojang.com/download/Minecraft.deb
 sudo apt install -y ./minecraft.deb
-echo 'neofetch' >> ~/.bashrc
 sudo chown -R $USER: $HOME
-
+if ! grep -q "neofetch" ~/.bashrc; then
+    echo 'neofetch' >> ~/.bashrc
+    echo "Added 'neofetch' command to .bashrc"
+else
+    echo "The 'neofetch' command is already present in .bashrc"
+fi
 echo "all done"
 
