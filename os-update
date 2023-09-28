@@ -23,7 +23,7 @@ kernel=$(uname -r)
 
 if [ $gpu == "NVIDIA" ]
 then
-    sudo apt install nvidia-driver-525 -y
+    sudo apt install nvidia-driver-535 -y
     if [ $kernel == 5.19.0-38-generic ]
     then
         cd
