@@ -1,11 +1,23 @@
 #!/bin/bash
+cd
 location=$(pwd | grep .)
 sudo apt update 
 sudo apt upgrade -y
-sudo apt install net-tools wireless-tools dialog curl git cockpit python3-pip fail2ban -y
+sudo apt install net-tools wireless-tools dialog curl git cockpit python3-pip fail2ban aircrack-ng mdk4 bully hashcat hcxdumptool hcxtools macchanger wifite -y
+
+mkdir hacking-tools
+cd hacking-tools 
+git clone https://github.com/tegal1337/CiLocks
+git clone https://github.com/KasRoudra/PyPhisher
+git clone https://github.com/htr-tech/zphisher
+git clone https://github.com/KasRoudra/MaxPhisher
+git clone https://github.com/TheSpeedX/TBomb
 git clone https://github.com/AngelSecurityTeam/Cam-Hackers
 git clone https://github.com/thewhiteh4t/seeker
 git clone https://github.com/sherlock-project/sherlock
+git clone https://github.com/beefproject/beef/
+cd
+
 git clone https://github.com/MrScratchcat/auto-minecraft-server
 sudo systemctl start cockpit cockpit.socket
 sudo systemctl enable cockpit cockpit.socket
