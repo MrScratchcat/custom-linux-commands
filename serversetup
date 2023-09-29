@@ -3,7 +3,7 @@ cd
 location=$(pwd | grep .)
 sudo apt update 
 sudo apt upgrade -y
-sudo apt install net-tools wireless-tools dialog curl git cockpit python3-pip fail2ban aircrack-ng mdk4 bully hashcat hcxdumptool hcxtools macchanger wifite -y
+sudo apt install net-tools wireless-tools docker.io dialog curl git cockpit python3-pip fail2ban aircrack-ng mdk4 bully hashcat hcxdumptool hcxtools macchanger wifite -y
 
 mkdir hacking-tools
 cd hacking-tools 
