@@ -24,7 +24,7 @@ kernel=$(uname -r)
 if [ $gpu == "NVIDIA" ]
 then
     sudo apt install nvidia-driver-535 -y
-    if [ $kernel == 5.19.0-38-generic ]
+    if [ $kernel == 5* ]
     then
         cd
         mkdir kernel6.2.2
