@@ -3,7 +3,7 @@ cd
 sudo apt update 
 sudo apt upgrade -y
 sudo apt install bully hashcat hcxdumptool hcxtools macchanger wifite gnome-software-plugin-flatpak flatpak neofetch net-tools wireshark curl gimp filezilla wine dialog wireless-tools dialog neofetch git wget curl openjdk-19-jdk ettercap-graphical python3-pip gpsd gpsd-clients python3-tk python3-setuptools python3-pyqt5.qtchart bettercap docker.io -y
-flatpak --user remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install flathub -y
 flatpak install flathub io.missioncenter.MissionCenter -y
 flatpak install flathub com.visualstudio.code -y
