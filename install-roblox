@@ -1,10 +1,6 @@
 #!/bin/bash
 sudo apt update
-
-sudo apt install -y gettext wine git python3-pip python3-setuptools python3-wheel python3-dev pkg-config mesa-utils libcairo2-dev gtk-update-icon-cache desktop-file-utils xdg-utils libgirepository1.0-dev gir1.2-gtk-3.0 gnutls-bin:i386
-
-git clone --depth=1 https://gitlab.com/brinkervii/grapejuice.git /tmp/grapejuice
-
-cd /tmp/grapejuice
-./install.py
-echo "grapejuice is installed!"
+sudo apt install flatpak -y
+flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+flatpak install flathub -y
+flatpak install vinegar -y
