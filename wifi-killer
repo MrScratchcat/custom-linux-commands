@@ -2,9 +2,7 @@
 if [ "$(id -u)" -ne 0 ]; then
 	echo "This script must be run as root"
 	exit 1
-fi
-
-clear
+fi                                                                                 
 
 # Function to check if a package is installed
 check_package() {
@@ -13,26 +11,34 @@ check_package() {
 
 # Check if mdk4 is installed
 if ! check_package mdk4; then
-    echo "mdk4 is not installed. Installing..."
+    echo "mdk4 is not installed."
+    echo "would you like to install it? (y/n)"
+    read choice 
+    if [ "$choice" != "y" ]; then  
+        echo "script cant run without mdk4"
+        exit 1
+    fi
     sudo apt update
     sudo apt install -y mdk4
     echo "mdk4 has been installed."
 else
     echo "mdk4 is already installed."
 fi
-sleep 1
-# Check if aircrack-ng is installed
-if ! check_package aircrack-ng; then
-    echo "aircrack-ng is not installed. Installing..."
-    sudo apt update
-    sudo apt install -y aircrack-ng
-    echo "aircrack-ng has been installed."
-else
-    echo "aircrack-ng is already installed."
-fi
-sleep 1
 
 clear
+echo "                  ███     ██████   ███             █████       ███  ████  ████                    "
+echo "                 ░░░     ███░░███ ░░░             ░░███       ░░░  ░░███ ░░███                    "
+echo " █████ ███ █████ ████   ░███ ░░░  ████             ░███ █████ ████  ░███  ░███   ██████  ████████ "
+echo "░░███ ░███░░███ ░░███  ███████   ░░███  ██████████ ░███░░███ ░░███  ░███  ░███  ███░░███░░███░░███"
+echo " ░███ ░███ ░███  ░███ ░░░███░     ░███ ░░░░░░░░░░  ░██████░   ░███  ░███  ░███ ░███████  ░███ ░░░ "
+echo " ░░███████████   ░███   ░███      ░███             ░███░░███  ░███  ░███  ░███ ░███░░░   ░███     "
+echo "  ░░████░████    █████  █████     █████            ████ █████ █████ █████ █████░░██████  █████    "
+echo "   ░░░░ ░░░░    ░░░░░  ░░░░░     ░░░░░            ░░░░ ░░░░░ ░░░░░ ░░░░░ ░░░░░  ░░░░░░  ░░░░░     "
+                                                                                                  
+                                                                                                  
+                                                                                                  
+echo "made by MrScratchcat using mdk4"
+echo ""
 echo "Please pick a WiFi Card that supports monitor mode:"
 
 
@@ -106,28 +112,22 @@ fi
 channel=$(nmcli -f SSID,CHAN dev wifi list | grep -w "$selected_network" | awk '{print $2}')
 clear
 
-# Use nmcli to list WiFi networks on the specified channel
-echo "Other WiFi networks on channel $channel:"
-nmcli dev wifi list | grep -E "(^|\s)$channel\s" | sed 's/^\s*//;s/\*//'
+# List available Wi-Fi networks on the selected channel
+echo "Please wait for available Wi-Fi networks on channel $channel:"
+nmcli -f SSID,CHAN dev wifi list | tail -n +2 | awk -v channel="$channel" '$2 == channel {print $1}'
 
+ssid_list=$(nmcli -f SSID,CHAN dev wifi list | tail -n +2 | awk -v channel="$channel" '$2 == channel {print $1}')
 
-while true; do
-    read -p "Do you want to continue (y/n)? " choice
-    case "$choice" in
-        [Yy]* )
-            # Add your code here for when the user chooses 'y'
-            echo "Continuing..."
-            break
-            ;;
-        [Nn]* )
-            # Add your code here for when the user chooses 'n'
-            echo "Exiting..."
-            exit
-            ;;
-        * )
-            echo "Please enter 'y' or 'n'."
-            ;;
-    esac
+if [ $(echo "$ssid_list" | wc -l) -gt 1 ]; then
+  read -p "There are multiple Wi-Fi networks on channel $channel. Do you want to continue? (y/n) " choice
+  if [ "$choice" != "y" ]; then
+    exit 1
+  fi
+fi
+
+for ssid in $ssid_list; do
+  nmcli dev wifi disconnect
+  nmcli dev wifi connect "$ssid"
 done
 
 # Set the wireless interface to monitor mode
