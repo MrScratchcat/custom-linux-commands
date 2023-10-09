@@ -27,7 +27,7 @@ then
     if [ $kernel == 5.15.0-76-generic ]
     then
         sudo apt update
-        sudo apt install linux-oem-22.04d -y
+        sudo apt install linux-oem-22.04d linux-tools-oem-22.04d -y
         clear
     fi
 fi 
