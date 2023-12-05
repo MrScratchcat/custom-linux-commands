@@ -10,3 +10,6 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", ATTRS{manu
 #Flipper ESP32s2 BlackMagic
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="303a", ATTRS{idProduct}=="40??", ATTRS{manufacturer}=="Flipper Devices Inc.", TAG+="uaccess"
 " > /etc/udev/rules.d/42-flipperzero.rules
+sudo udevadm control --reload-rules
+sudo udevadm trigger
+sudo usermod -a -G dialout $USER
