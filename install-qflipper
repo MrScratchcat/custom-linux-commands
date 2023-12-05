@@ -6,7 +6,7 @@ fi
 sudo apt update
 sudo apt install flatpak -y
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-flatpak install --user one.flipperzero.qFlipper -y 
+flatpak install --user qflipper -y 
 sudo echo "#Flipper Zero serial port
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="5740", ATTRS{manufacturer}=="Flipper Devices Inc.", TAG+="uaccess"
 #Flipper Zero DFU
