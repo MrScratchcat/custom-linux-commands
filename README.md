@@ -1,5 +1,5 @@
 # custom-linux-commands
-only for dabian based!!!
+only for debian based!!!
 
 one liner:
 ```bash
