@@ -1,7 +1,7 @@
 #!/bin/bash
 sudo apt update 
 sudo apt install dialog -y
-ialog --inputbox "put in the tarball link from kernel.org:" 8 60 2>kernel.txt
+dialog --inputbox "put in the tarball link from kernel.org:" 8 60 2>kernel.txt
 kernel=$(cat kernel.txt)
 rm kernel.txt
 if [ -z "$kernel" ]; then
