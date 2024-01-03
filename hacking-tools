@@ -3,7 +3,7 @@ cd
 mkdir hacking-tools
 cd hacking-tools
 sudo apt update 
-sudo apt install git -y
+sudo apt install git wifiphisher bully hashcat hcxdumptool ncat netcat hcxtools macchanger wifite net-tools wireshark wireless-tools ettercap-graphical bettercap -y
 git clone https://github.com/0dayCTF/reverse-shell-generator
 git clone https://github.com/tegal1337/CiLocks
 git clone https://github.com/KasRoudra/PyPhisher
