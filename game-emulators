@@ -1,0 +1,12 @@
+sudo apt install flatpak -y
+flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+flatpak install flathub org.libretro.RetroArch -y
+flatpak install flathub com.steamgriddb.steam-rom-manager -y 
+flatpak install flathub org.DolphinEmu.dolphin-emu -y
+flatpak install flathub org.yuzu_emu.yuzu -y 
+flatpak install flathub net.pcsx2.PCSX2 -y
+flatpak install flathub net.kuribo64.melonDS -y
+flatpak install flathub io.github.simple64.simple64 -y
+flatpak install flathub org.duckstation.DuckStation -y
+flatpak install flathub org.citra_emu.citra -y
+flatpak install flathub info.cemu.Cemu -y 
