@@ -1,6 +1,6 @@
 #!/bin/bash
 sudo apt install hashcat
-sudo apt install hcxpcapngtool
+sudo apt install hcxtools
 sudo apt install hcxdumptool
 clear
 # Set the directory to the current directory
