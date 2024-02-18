@@ -1,0 +1,8 @@
+#!/bin/bash
+cd
+sudo apt update && sudo apt install git -y
+git clone --recursive --jobs 8 https://github.com/Flipper-XFW/Xtreme-Firmware.git
+cd Xtreme-Firmware/
+./fbt flash_usb_full
+./fbt updater_package
+./fbt launch APPSRC=your_appid
