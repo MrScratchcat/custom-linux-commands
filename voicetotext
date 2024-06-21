@@ -1,0 +1,97 @@
+#!/bin/bash
+
+if command -v jq >/dev/null 2>&1; then
+    echo "jq is already installed."
+else
+    if command -v apt-get >/dev/null 2>&1; then
+        PM=apt-get
+        INSTALL_CMD="sudo $PM update && sudo $PM install -y jq"
+    elif command -v dnf >/dev/null 2>&1; then
+        PM=dnf
+        INSTALL_CMD="sudo $PM install -y jq"
+    elif command -v yum >/dev/null 2>&1; then
+        PM=yum
+        INSTALL_CMD="sudo $PM install -y jq"
+    elif command -v pacman >/dev/null 2>&1; then
+        PM=pacman
+        INSTALL_CMD="sudo $PM -Sy jq"
+    elif command -v zypper >/dev/null 2>&1; then
+        PM=zypper
+        INSTALL_CMD="sudo $PM install -y jq"
+    else
+        echo "Package manager not detected. You may need to install jq manually."
+        exit 1
+    fi
+fi
+eval $INSTALL_CMD
+
+API_KEY_FILE="$HOME/.openai_api_key"
+API_ENDPOINT="https://api.openai.com/v1/models"
+ask_and_save_api_key() {
+    while true; do
+        echo "Please enter your OpenAI API Key:"
+        read -r user_api_key
+        if verify_api_key "$user_api_key"; then
+            echo "$user_api_key" > "$API_KEY_FILE"
+            echo "API Key is valid and has been saved to $API_KEY_FILE."
+            break
+        else
+            echo "The API Key is invalid or there was an error. Please try again."
+        fi
+    done
+}
+
+verify_api_key() {
+    local api_key=$1
+    local response=$(curl -s -o /dev/null -w "%{http_code}" -H "Authorization: Bearer $api_key" "$API_ENDPOINT")
+
+    if [ "$response" -eq 200 ]; then
+        echo "The API Key is valid."
+        return 0 # Success
+    else
+        echo "The API Key is invalid or there was an error. Response code: $response"
+        return 1 # Failure
+    fi
+}
+
+if [ -f "$API_KEY_FILE" ] && [ -s "$API_KEY_FILE" ]; then
+    API_KEY=$(cat "$API_KEY_FILE")
+    if ! verify_api_key "$API_KEY"; then
+        echo "Existing API key is invalid. Please enter a new one."
+        ask_and_save_api_key
+    fi
+else
+    ask_and_save_api_key
+fi
+OPENAI_API_KEY=$(cat $HOME/.openai_api_key)
+function transcribe_voice() {
+    echo "Transcribing..."
+    TRANSCRIPTION_RESPONSE=$(curl -s -X POST "https://api.openai.com/v1/audio/transcriptions" \
+        -H "Authorization: Bearer $OPENAI_API_KEY" \
+        -H "Content-Type: multipart/form-data" \
+        -F file=@"$selected_file" \
+        -F model="whisper-1")
+    TRANSCRIBED_TEXT=$(echo $TRANSCRIPTION_RESPONSE | jq -r '.text')
+    echo "$TRANSCRIBED_TEXT"
+}
+echo " "
+wav_files=(*.wav)
+if [ ${#wav_files[@]} -eq 0 ]; then
+    echo "No .wav files found in the current directory."
+    exit 1
+fi
+echo "Select a .wav file to convert to text:"
+for i in "${!wav_files[@]}"; do
+    echo "$((i + 1)). ${wav_files[$i]}"
+done
+read -p "Enter the number of the file you want to select: " selection
+if ! [[ "$selection" =~ ^[0-9]+$ ]] || [ "$selection" -lt 1 ] || [ "$selection" -gt ${#wav_files[@]} ]; then
+    echo "Invalid selection."
+    exit 1
+fi
+selected_file=${wav_files[$((selection - 1))]}
+file="${selected_file%.wav}"
+clear
+transcribe_voice
+echo " "
+echo $TRANSCRIBED_TEXT > ${file}.txt 
